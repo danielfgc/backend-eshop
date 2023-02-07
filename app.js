@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const authJwt = require("./helpers/jwt");
 const errorHandler = require("./helpers/error-handler");
+const path = require("path");
 require("dotenv/config");
 
 app.use(cors());
@@ -14,6 +15,11 @@ app.options("*", cors());
 //middleware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+
+app.use(
+  "/public/uploads",
+  express.static(path.join(__dirname, "/public/uploads"))
+);
 app.use(authJwt());
 app.use(errorHandler);
 
@@ -45,6 +51,6 @@ mongoose
   });
 
 //Server
-app.listen(4000, () => {
+app.listen(3000, () => {
   console.log("server is running http://localhost:3000");
 });
