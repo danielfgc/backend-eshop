@@ -20,7 +20,7 @@ app.use(
   "/public/uploads",
   express.static(path.join(__dirname, "/public/uploads"))
 );
-app.use(authJwt());
+// app.use(authJwt());
 app.use(errorHandler);
 
 //Routes
