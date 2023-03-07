@@ -22,10 +22,18 @@ stages:          # List of stages for jobs, and their order of execution
   - deploy
 
 build-job:       # This job runs in the build stage, which runs first.
-  stage: build
+  image: node:latest
+  services:
+    - mongo
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  before_script:
+    - npm install
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
+    - npm run build
+
 
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
