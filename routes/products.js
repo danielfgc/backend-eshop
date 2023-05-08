@@ -150,7 +150,7 @@ router.delete("/:id", (req, res) => {
 });
 
 router.get(`/get/count`, async (req, res) => {
-  const productCount = await Product.countDocuments((count) => count);
+  const productCount = await Product.find().count();
 
   if (!productCount) {
     res.status(500).json({ success: false });
@@ -178,6 +178,7 @@ router.put(
       return res.status(400).send("Invalid Product Id");
     }
     const files = req.files;
+    console.log(files)
     let imagesPaths = [];
     const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
 
